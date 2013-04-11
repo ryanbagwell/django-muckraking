@@ -1,0 +1,1 @@
+Search.setIndex({envversion:42,terms:{collect:0},objtypes:{},objnames:{},filenames:["index"],titles:["Django Muckraking"],objects:{},titleterms:{util:0,muckrak:0,templat:0,django:0}})
