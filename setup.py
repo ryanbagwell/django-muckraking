@@ -13,7 +13,6 @@ setup(
     install_requires=[
         "Django >= 1.4",
         "django-classy-tags==0.4",
-        "gitpython==0.3.1",
         "gitpython==0.3.2.RC1"
     ]
 )
