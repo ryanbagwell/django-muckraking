@@ -4,10 +4,14 @@
 
 
 """
-
 from classytags.arguments import Argument
-from classytags.core import Tag
+from classytags.core import Tag, Options
+from django.conf import settings
+from git import Repo
+import os
+from django import template
 
+register = template.Library()
 
 
 class EnqueueScript(Tag):
@@ -73,3 +77,21 @@ class RenderScripts(Tag):
         return '\n'.join([ self.queue[script].__unicode__() for script in self.order])
 
 register.tag(RenderScripts)
+
+
+class GitHeadHash(Tag):
+    """ A template tag that outputs the HEAD commit hash
+        of the current branch, if it exists.
+
+        Useful for cache-busting url params """
+
+
+    name = 'git_commit_hash'
+
+    def render_tag(self, context):
+
+        repo = Repo(os.path.dirname(__import__(settings.ROOT_URLCONF).__file__))
+
+        return repo.heads[0].commit.hexsha
+
+register.tag(GitHeadHash)
