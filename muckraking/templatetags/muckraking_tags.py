@@ -1,4 +1,4 @@
-"""Template utilities
+"""General-use emplate tags
 
 .. moduleauthor:: Ryan Bagwell <ryan@ryanbagwell.com>
 
