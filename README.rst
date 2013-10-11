@@ -32,7 +32,7 @@ Debug Context - muckraking.template.context_processors.debug_context
 Standard Template Tags
 ----------------------
 
-To use the following tags, add {% load muckraking_tags %} to your template.
+To use the following tags, add :code:`{% load muckraking_tags %}` to your template.
 
 Git Head Hash
     Outputs the commit hash of the HEAD commit in a git repo. Useful for cache-busting strings::
