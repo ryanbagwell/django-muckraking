@@ -47,5 +47,14 @@ To use the following tags, add :code:`{% load muckraking_cms_tags %}` to your te
     Allows you to perform reverse lookups on pages by slug::
 
 
+Management Commands
+-------------------
+
+import_redirects
+    Allows you to import a csv file of redirect urls into the redicet app::
+
+    ./manage.py import_redirects ~/path/to/redirects.csv
+
+
 
 
