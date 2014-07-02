@@ -1,4 +1,9 @@
 
+0.3
+___
+Added new version_hash template tag and settings_file_time_hash template tag.
+
+
 0.2
 ---
 Added import_redirects command
