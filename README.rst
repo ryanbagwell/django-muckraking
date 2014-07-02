@@ -34,8 +34,15 @@ Standard Template Tags
 
 To use the following tags, add :code:`{% load muckraking_tags %}` to your template.
 
+:code:`{% version_hash %}`
+    Outputs a hash of the git HEAD commit if it exists, or the last time the settings file was accessed. Useful for cache-busting strings.
+
+:code:`{% settings_file_time_hash %}`
+    Outputs a hash of the last time the settings file was accessed.
+
 :code:`{% git_commit_hash %}`
-    Outputs the commit hash of the HEAD commit in a git repo. Useful for cache-busting strings
+    Outputs the commit hash of the HEAD commit in a git repo.
+
 
 
 Django CMS Template Tags

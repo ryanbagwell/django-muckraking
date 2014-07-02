@@ -10,6 +10,7 @@ from django.conf import settings
 from git import Repo
 import os
 from django import template
+import hashlib
 
 register = template.Library()
 
@@ -79,7 +80,49 @@ class RenderScripts(Tag):
 register.tag(RenderScripts)
 
 
-class GitHeadHash(Tag):
+
+class VersionHashTag(Tag):
+    """ A template tag that outputs a unique hash
+        for version purposes. First, it tries to obtain the
+        latest git commit hash. If unsuccessful, it provides a hash
+        of the last time the settings file was accessed.
+
+        Useful for cache-busting url params """
+
+    name = 'version_hash'
+
+    def render_tag(self, context):
+
+        git_hash = self.get_git_hash()
+
+        if git_hash is '000000':
+            return self.get_atime_hash()
+        else:
+            return git_hash
+
+    def get_atime_hash(self):
+
+        try:
+            settings_file = __import__(settings.SETTINGS_MODULE).__file__
+            a_time = os.stat(settings_file).st_atime
+            h = hashlib.md5()
+            h.update(str(a_time))
+            return h.hexdigest()
+        except:
+            return '000000'
+
+    def get_git_hash(self):
+
+        try:
+            repo = Repo(os.path.dirname(__import__(settings.ROOT_URLCONF).__file__))
+            return repo.heads[0].commit.hexsha
+        except:
+            return '000000'
+
+register.tag(VersionHashTag)
+
+
+class GitHeadHash(VersionHashTag):
     """ A template tag that outputs the HEAD commit hash
         of the current branch, if it exists.
 
@@ -90,8 +133,28 @@ class GitHeadHash(Tag):
 
     def render_tag(self, context):
 
-        repo = Repo(os.path.dirname(__import__(settings.ROOT_URLCONF).__file__))
-
-        return repo.heads[0].commit.hexsha
+        return self.get_git_hash()
 
 register.tag(GitHeadHash)
+
+
+class SettingsFileTimeHash(VersionHashTag):
+    """ A template tag that prints an md5 hash
+        of the last time the Django settings file
+        was accessed """
+
+    name = 'settings_file_time_hash'
+
+    def render_tag(self, context):
+
+        return self.get_atime_hash()
+
+
+register.tag(SettingsFileTimeHash)
+
+
+
+
+
+
+
