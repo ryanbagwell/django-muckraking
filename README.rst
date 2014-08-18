@@ -34,8 +34,14 @@ Standard Template Tags
 
 To use the following tags, add :code:`{% load muckraking_tags %}` to your template.
 
+:code:`{% version_hash %}`
+    Outputs either the Git HEAD commit hash, or a hash of the atime value of the Django settings module. It first tries to output the Git commit hash. If unsuccessful, it falls back to the settings module file time hash.
+
 :code:`{% git_commit_hash %}`
-    Outputs the commit hash of the HEAD commit in a git repo. Useful for cache-busting strings
+    Outputs the commit hash of the HEAD commit in a git repo. Useful for cache-busting strings.
+
+:code:`{% settings_file_time_hash %}`
+    Outputs a hash of the atime meta value of the Django settings module file. Useful for cache-busting strings.
 
 
 Django CMS Template Tags
@@ -54,7 +60,3 @@ import_redirects
     Allows you to import a csv file of redirect urls into the redicet app::
 
     ./manage.py import_redirects ~/path/to/redirects.csv
-
-
-
-
