@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-muckraking',
-    version='0.3',
+    version='0.3.1',
     author='Ryan Bagwell',
     author_email='ryan@ryanbagwell.com',
     url='https://github.com/ryanbagwell/django-muckraking',
