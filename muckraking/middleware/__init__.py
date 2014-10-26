@@ -14,7 +14,7 @@ class SpacelessMiddleware(object):
         if not settings.DEBUG and 'text/html' in response['Content-Type']:
             response.content = short(response.content)
 
-            response.content = ''.join([line for line in response.content.split('\n') if line])
+            response.content = '\n'.join([line for line in response.content.split('\n') if line.strip()])
 
         return response
 
